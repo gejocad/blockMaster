@@ -25,9 +25,6 @@ const SModalBody = styled(ModalBody)`
     display: flex;
 `
 
-const SH1 = styled.h1`
-
-`
 
 const Peliculas = () => {
 

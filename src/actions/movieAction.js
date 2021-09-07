@@ -58,7 +58,6 @@ export const activeMovies = (id, movie) => ({
 
 export const Edit = (movie) => {
     return async (dispatch, getState) => {
-        const { uid } = getState().auth;
         
         if (!movie.url) {
             delete movie.url;
@@ -120,7 +119,6 @@ export const startUploading = (file) => {
 export const Delete = (id) => {
     return async (dispatch, getState) => {
 
-        const uid = getState().auth.uid;
         
 
         await db.doc(`movies/${id}`).delete();
@@ -141,3 +139,28 @@ export const deleteMovie = (id) => ({
     type: types.movieDelete,
     payload: id
 });
+
+export const listaSearch = (searchText) => {
+
+    return async(dispatch) => {
+        const moviesSnap = await db.collection(`movies/`).where('tittle','==',searchText).get();
+        const moviesl = []
+    
+        moviesSnap.forEach(snapHijo => {
+            moviesl.push({
+                uid: snapHijo.id,
+                ...snapHijo.data()
+            })
+        })
+        console.log(moviesl)
+        dispatch(listarSe(moviesl));
+
+    }
+}
+
+export const listarSe = (movie) => {
+    return {
+        type: types.ListarBusqueda,
+        payload: movie
+    }
+}

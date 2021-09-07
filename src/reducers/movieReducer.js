@@ -33,7 +33,15 @@ export const movieReducer = (state = initialState, action) => {
             }
         case types.updateMovie:
             return {}
+
+        case types.ListarBusqueda:
+                return{
+                    ...state,
+                    search: [...action.payload]
+                }
         default:
             return state
+            
     }
+        
 }

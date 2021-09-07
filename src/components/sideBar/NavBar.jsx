@@ -5,8 +5,6 @@ import {
     Box,
     Stack,
     Flex,
-    Text,
-    Button,
     useDisclosure,
     FormControl,
     InputGroup,
@@ -86,7 +84,7 @@ const NavBar = () => {
                 mt={{ base: 4, md: 0 }}
                 justifyContent='center'
             >
-                <Link to='/home'>Most valued</Link>
+                <Link to='/search'>Most valued</Link>
             </Stack>
 
             <Stack

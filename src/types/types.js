@@ -13,4 +13,6 @@ export const types = {
     loadMovie: 'Load Movie',
     activeMovie: 'Active Movie',
     movieDelete:'Delete movies',
+
+    ListarBusqueda: 'ListarBusqueda'
 }

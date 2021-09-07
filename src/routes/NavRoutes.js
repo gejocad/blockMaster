@@ -7,6 +7,7 @@ import {
 import NavBar from '../components/sideBar/NavBar'
 import AddMovie from '../containers/addmovie/AddMovie'
 import Home from '../containers/home/Home'
+import { SearchScreen } from '../components/search/SearchScreen'
 
 const NavRoutes = () => {
     return (
@@ -15,6 +16,7 @@ const NavRoutes = () => {
             <Switch>
                 <Route path='/home' component={Home} />
                 <Route path='/addmovies' component={AddMovie} />
+                <Route path='/search' component={SearchScreen} />
             </Switch>
         </>
     )

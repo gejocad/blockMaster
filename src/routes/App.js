@@ -14,6 +14,7 @@ import { PublicRouter } from './PublicRoute';
 import AuthRoutes from './AuthRoutes';
 import AddMovie from '../containers/addmovie/AddMovie';
 // import ContenedorNav from '../containers/sideBar/ContenedorNav';
+import { SearchScreen } from '../components/search/SearchScreen';
 import NavRoutes from './NavRoutes';
 import { startLoadingMovie } from '../actions/movieAction';
 
@@ -50,6 +51,7 @@ function App() {
           <PublicRouter path='/auth' component={AuthRoutes} isAuthenticated={isLoogedIn} />
           <PrivateRouter path='/' component={NavRoutes} isAuthenticated={isLoogedIn} />
           <PrivateRouter path='/addmovies' component={AddMovie} isAuthenticated={isLoogedIn} />
+          <PrivateRouter path='/search' component={SearchScreen} isAuthenticated={isLoogedIn} />
           {/* <Route exact path='/auth/login' component={Login} />
           <Route exact path='/auth/register' component={Register} /> */}
           <Redirect to='/auth/login' />
