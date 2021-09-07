@@ -104,7 +104,7 @@ const NavBar = () => {
                 mt={{ base: 4, md: 0 }}
                 justifyContent='center'
             >
-                <Link to='/search'>Buscar</Link>
+                <Link to='/search'>Search</Link>
             </Stack>
 
             <Stack
@@ -138,7 +138,7 @@ const NavBar = () => {
                         <Button
                             type="submit"
                         >
-                            Search...
+                            Search
                         </Button>
                         </form>
                         
