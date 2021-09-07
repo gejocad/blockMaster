@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useForm } from '../../hooks/useForm';
+import { listaSearch } from '../../actions/movieAction';
 import {
     Box,
     Stack,
@@ -11,6 +13,7 @@ import {
     InputLeftElement,
     Input,
     Menu,
+    Button,
     MenuButton,
     MenuList,
     MenuItem,
@@ -41,6 +44,23 @@ const NavBar = () => {
         dispatch(startLogout())
     }
 
+
+    const  {search}  = useSelector(state => state.movie);
+    console.log(search);
+
+    const [formValues, handleInputChange] = useForm({
+        searchText: ''
+    }
+    
+    );
+    const { searchText } = formValues;
+
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        dispatch(listaSearch(searchText));
+        // history.push(`?q=${ searchText }`);
+    }
 
     return (
         <Flex
@@ -84,7 +104,7 @@ const NavBar = () => {
                 mt={{ base: 4, md: 0 }}
                 justifyContent='center'
             >
-                <Link to='/search'>Most valued</Link>
+                <Link to='/search'>Buscar</Link>
             </Stack>
 
             <Stack
@@ -113,7 +133,15 @@ const NavBar = () => {
                             pointerEvents='none'
                             children={<FaSearch color="#0F0E17" />}
                         />
-                        <Input type='search' placeholder='Search...' name='search' borderRadius={20} />
+                        <form onSubmit={handleSearch}>
+                        <Input type='search' placeholder='Search...' name="searchText" borderRadius={20} autoComplete="on" value={searchText} onChange={handleInputChange}/>
+                        <Button
+                            type="submit"
+                        >
+                            Search...
+                        </Button>
+                        </form>
+                        
                     </InputSearch>
                 </FormControl>
             </Stack>

@@ -1,42 +1,124 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import {
+  Box,
+  Button,
+  Grid,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@chakra-ui/react";
+import styled from "styled-components";
+import { activeMovies } from "../../actions/movieAction";
+import { FaPlay, FaPlus } from "react-icons/fa";
+const ImgMovies = styled.img`
+  border-radius: 10px !important;
+  opacity: 0.5;
+  :hover {
+    opacity: 1;
+  }
+`;
+const SModalContent = styled(ModalContent)`
+  max-width: none;
+  width: 80%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 20px;
+`;
 
-export const HeroCard = ({
-            image,
-            tittle,
-            description,
-            year,
-            categorie,
-            duration,
+const SModalBody = styled(ModalBody)`
+  display: flex;
+`;
+
+const Contenedor = ({
+  image,
+  tittle,
+  index,
 }) => {
+  const dispatch = useDispatch();
 
-    return (
-        <div className="card ms-3 animate__animated animate__fadeIn" style={ { maxWidth: 540 } }>
-            <div className="row no-gutters">
-                <div className="col-md-4">
-                    <img src={image} className="card-img" alt="" />
-                </div>
-                <div className="col-md-8">
-                    
-                    <div className="card-body">
-                        <h5 className="card-title">{tittle}</h5>
-                        <p className="card-text"> </p>
+  const { movie } = useSelector((state) => state.movie);
 
-                     
+  const { active } = useSelector((state) => state.movie);
 
-                        <p className="card-text">
-                            <small className="text-muted"></small>
-                        </p>
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-                        <Link to="">
-                            Más...
-                        </Link>
+  console.log(movie);
 
-                    </div>
+  const handleClickMovie = (mov) => {
+    dispatch(activeMovies(mov.id, { ...mov }));
+  };
 
-                </div>
+  return (
+    <>
+      
+          <Box
+            w="100%"
+            h="100%"
+            key={index}
+            onClick={(mov) => handleClickMovie(mov)}
+          >
+            <ImgMovies onClick={onOpen} src={image} alt={tittle} border="0" />
+          </Box>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <SModalContent className="hola">
+          <ModalHeader>
+            <ModalCloseButton />
+          </ModalHeader>
+          <SModalBody>
+            <img
+              src={active.image}
+              alt={active.tittle}
+              border="0"
+              style={{ marginRight: "10px", width: "30%", height: "30%" }}
+            />
+            <div>
+              <h1 style={{ fontSize: "30px" }}>{active.tittle}</h1>
+              <hr />
+              <p style={{ fontSize: "18px" }}>{active.description}</p>
+              <hr />
+              <p style={{ fontSize: "14px" }}>
+                {active.year} - {active.categorie} - {active.duration}
+              </p>
             </div>
-        </div>
-    )
+          </SModalBody>
+          <ModalFooter>
+            <Button
+              leftIcon={<FaPlay />}
+              style={{
+                width: "270",
+                height: "50",
+                background: "#FED941",
+                color: "#0F0E17",
+                border: "solid #FED941",
+                marginRight: "10px",
+              }}
+            >
+              Ver Ahora
+            </Button>
+            <Button
+              leftIcon={<FaPlus />}
+              style={{
+                width: "270",
+                height: "50",
+                background: "transparent",
+                color: "#FED941",
+                border: "solid #FED941",
+              }}
+            >
+              Ver despues
+            </Button>
+          </ModalFooter>
+        </SModalContent>
+      </Modal>
+    </>
+  );
+};
 
-}
+export default Contenedor;

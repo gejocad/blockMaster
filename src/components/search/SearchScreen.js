@@ -1,9 +1,10 @@
 import React from 'react';
 import { useForm } from '../../hooks/useForm';
 import { listaSearch } from '../../actions/movieAction';
+import {  Grid } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import {HeroCard} from './Contenedor';
+import Contenedor from './Contenedor';
 
 export const SearchScreen = () => {
 
@@ -26,53 +27,20 @@ export const SearchScreen = () => {
 
     return (
         <div>
-            <h1>Search Screen</h1>
-            <hr />
-
-            <div className="row">
-
-                <div className="col-5">
-                    <h4> Search Form </h4>
-                    <hr />
-
-                    <form onSubmit={handleSearch}>
-                        <input
-                            type="text"
-                            placeholder="Find your hero"
-                            className="form-control"
-                            name="searchText"
-                            autoComplete="off"
-                            value={searchText}
-                            onChange={handleInputChange}
-                        />
-
-                        <button
-                            type="submit"
-                            className="btn m-1 btn-block btn-outline-primary"
-                        >
-                            Search...
-                        </button>
-                    </form>
-
-
-                </div>
-
-
-                <div className="col-7">
-
-                    <h4> Results </h4>
-                    <hr />
-
+            
                     {
                         (search) ?
                             (
-
-                                search.map(movi => (
-                                    <HeroCard
-                                        key={movi.id}
-                                        {...movi}
+                                <Grid templateColumns="repeat(5, 1fr)" gap={3} m={10}>
+                                {
+                                search.map((mov) => (
+                                    <Contenedor
+                                        key={mov.id}
+                                        {...mov}
                                     />
                                 ))
+                            }
+                            </Grid>
 
                             ) :
                             <p>No hay datos</p>
@@ -81,9 +49,6 @@ export const SearchScreen = () => {
 
 
 
-                </div>
-
-            </div>
 
 
         </div>
